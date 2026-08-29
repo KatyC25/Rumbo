@@ -295,16 +295,24 @@ h2 em, h1 span { color: var(--yellow); font-style: normal; }
 
 /* Modal */
 .modal-backdrop { align-items: center; background: rgba(22,18,48,.77); display: flex; inset: 0; justify-content: center; padding: 20px; position: fixed; z-index: 20; }
-.modal-card { background: var(--paper); max-width: 470px; padding: 44px 42px 40px; position: relative; width: 100%; }
+.modal-card { background: var(--paper); max-height: calc(100vh - 40px); max-width: 520px; overflow-y: auto; padding: 38px 42px 40px; position: relative; width: 100%; }
 .modal-close { align-items: center; background: transparent; border: 0; color: var(--navy); display: flex; height: 32px; justify-content: center; position: absolute; right: 17px; top: 17px; width: 32px; }
 .modal-close:hover { background: var(--yellow); }
 .modal-symbol { align-items: center; background: var(--yellow); color: var(--navy); display: flex; font-family: var(--display); font-size: 26px; height: 46px; justify-content: center; margin-bottom: 28px; width: 46px; }
 .modal-card .eyebrow { margin-bottom: 13px; }
 .modal-card h2 { color: var(--navy); font-size: 40px; margin-bottom: 17px; }
 .modal-card > p:not(.eyebrow) { color: var(--muted); font-size: 12px; line-height: 1.75; margin-bottom: 24px; }
-.modal-form { display: flex; gap: 8px; }
-.modal-form input { background: white; border: 1px solid #d5d4d8; font-size: 11px; min-width: 0; padding: 0 13px; width: 100%; }
+.modal-form { display: flex; flex-direction: column; gap: 13px; }
+.modal-form label > span { color: #64636a; display: block; font-size: 9px; font-weight: 700; margin-bottom: 6px; }
+.modal-form input { background: white; border: 1px solid #d5d4d8; font-size: 11px; min-height: 44px; min-width: 0; padding: 0 13px; width: 100%; }
 .modal-form input:focus { border-color: var(--navy); outline: 2px solid rgba(41,35,92,.12); }
+.form-row { display: grid; gap: 10px; grid-template-columns: 1fr 74px; }
+.consent-check { align-items: start; display: flex; gap: 9px; }
+.consent-check input { accent-color: var(--navy); flex: 0 0 auto; min-height: 16px; padding: 0; width: 16px; }
+.consent-check > span { font-size: 8px !important; font-weight: 500 !important; line-height: 1.5; margin: 0 !important; }
+.modal-form .button { width: 100%; }
+.modal-form .button:disabled { cursor: wait; opacity: .7; }
+.form-error { background: #f5dcdc; color: #8a2e2e; font-size: 9px; line-height: 1.5; padding: 9px 10px; }
 .button-navy { background: var(--navy); color: white; }
 .modal-action { width: max-content; }
 .success-message { align-items: center; background: #d7ebdf; color: #276143; display: flex; font-size: 11px; gap: 8px; line-height: 1.5; padding: 13px; }
