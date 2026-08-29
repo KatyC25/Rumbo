@@ -1,7 +1,7 @@
 import { useState } from 'react'
-import logoImage from './LOGORUMBO.png'
-import kioskImage from './Kiosco Rumbo.jpeg'
-import cardImage from './Diseño de tarjeta rumbo.png'
+import logoImage from './logo-rumbo.png'
+import kioskImage from './kiosco-rumbo.jpeg'
+import cardImage from './tarjeta-rumbo.png'
 
 const teamImage =
   'https://images.unsplash.com/photo-1556761175-b413da4baf72?auto=format&fit=crop&w=1200&q=85'
