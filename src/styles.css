@@ -25,11 +25,10 @@ img { display: block; max-width: 100%; }
 .site-shell { overflow: hidden; }
 .section-inner, .header-inner, .hero-inner { width: min(1180px, calc(100% - 80px)); margin: 0 auto; }
 .icon { display: inline-block; flex: 0 0 auto; stroke: currentColor; stroke-linecap: round; stroke-linejoin: round; stroke-width: 1.7; }
-.brand { align-items: center; color: var(--navy); display: inline-flex; gap: 10px; position: relative; z-index: 2; }
-.brand-mark { align-items: center; display: inline-flex; height: 34px; justify-content: center; width: 34px; }
-.brand-mark svg { height: 100%; width: 100%; }
-.brand-word { font-family: var(--display); font-size: 19px; font-weight: 700; letter-spacing: .18em; }
+.brand { align-items: center; color: var(--navy); display: inline-flex; position: relative; z-index: 2; }
+.brand-image { height: auto; object-fit: contain; width: 122px; }
 .brand-dark { color: var(--yellow); }
+.brand-dark .brand-image { background: var(--paper); padding: 3px 7px; width: 130px; }
 .eyebrow { color: var(--navy); font-family: var(--mono); font-size: 10px; letter-spacing: .14em; line-height: 1.4; margin: 0 0 20px; text-transform: uppercase; }
 .light-eyebrow { color: rgba(255, 255, 255, .68); }
 .eyebrow-dot { background: var(--yellow); border-radius: 50%; display: inline-block; height: 6px; margin: 0 8px 1px 0; width: 6px; }
@@ -73,7 +72,7 @@ h2 em, h1 span { color: var(--yellow); font-style: normal; }
 .hero-art { height: 600px; position: relative; }
 .hero-photo-wrap { height: 472px; overflow: hidden; position: absolute; right: 1%; top: 58px; transform: rotate(4deg); width: 394px; z-index: 1; }
 .hero-photo-wrap::before { background: var(--yellow); content: ''; height: 100%; left: -11px; position: absolute; top: 11px; width: 100%; }
-.hero-photo-wrap img { filter: saturate(.77); height: 100%; object-fit: cover; position: relative; width: 100%; }
+.hero-photo-wrap img { filter: saturate(.82); height: 100%; object-fit: cover; object-position: center 56%; position: relative; width: 100%; }
 .photo-shade { background: linear-gradient(180deg, rgba(41,35,92,.01), rgba(41,35,92,.54)); inset: 0; position: absolute; }
 .hero-orbit { border: 1px solid rgba(243,232,33,.8); border-radius: 50%; position: absolute; transform: rotate(-28deg); }
 .orbit-one { height: 430px; right: -20px; top: 87px; width: 548px; z-index: 0; }
@@ -173,6 +172,26 @@ h2 em, h1 span { color: var(--yellow); font-style: normal; }
 .talent-highlight strong { display: block; font-family: var(--display); font-size: 14px; font-weight: 500; }
 .talent-highlight p { color: rgba(255,255,255,.52); font-size: 10px; line-height: 1.6; margin: 5px 0 0; max-width: 220px; }
 .talent-copy .text-button { color: var(--yellow); }
+
+/* Physical card */
+.card-section { background: #e3e2e5; overflow: hidden; padding: 112px 0 118px; position: relative; }
+.card-section::before { border: 1px solid rgba(41,35,92,.15); border-radius: 50%; content: ''; height: 640px; left: -340px; position: absolute; top: -250px; width: 640px; }
+.card-grid { align-items: center; display: grid; gap: 10%; grid-template-columns: .78fr 1.22fr; position: relative; }
+.card-copy { max-width: 390px; }
+.card-copy h2 { color: var(--navy); }
+.card-copy h2 em { color: var(--ink); }
+.card-copy > p:not(.eyebrow) { color: var(--muted); font-size: 12px; line-height: 1.8; margin-bottom: 31px; }
+.card-facts { border-top: 1px solid var(--line); display: grid; grid-template-columns: repeat(3, 1fr); margin-bottom: 25px; }
+.card-facts > div { border-right: 1px solid var(--line); display: flex; flex-direction: column; gap: 7px; padding: 15px 10px 0 0; }
+.card-facts > div:not(:first-child) { padding-left: 10px; }
+.card-facts > div:last-child { border-right: 0; }
+.card-facts strong { color: var(--navy); font-family: var(--mono); font-size: 10px; }
+.card-facts span { color: var(--muted); font-family: var(--display); font-size: 10px; line-height: 1.25; }
+.card-art { background: var(--white); box-shadow: 14px 16px 0 var(--yellow); min-height: 395px; overflow: hidden; padding: 20px; position: relative; transform: rotate(3deg); }
+.card-art img { height: 100%; min-height: 350px; object-fit: cover; object-position: center; position: relative; width: 100%; z-index: 1; }
+.card-art-grid { background-image: radial-gradient(var(--navy) 1px, transparent 1px); background-size: 15px 15px; height: 110px; opacity: .14; position: absolute; right: -15px; top: -18px; width: 180px; }
+.card-art-label { background: var(--navy); bottom: 33px; color: var(--yellow); font-family: var(--mono); font-size: 8px; left: 34px; letter-spacing: .1em; line-height: 1.45; padding: 9px 11px; position: absolute; transform: rotate(-4deg); z-index: 2; }
+.card-art-label strong { color: white; font-weight: 400; }
 
 /* Opportunities */
 .opportunities-section { padding-bottom: 125px; padding-top: 126px; }
@@ -308,12 +327,16 @@ h2 em, h1 span { color: var(--yellow); font-style: normal; }
   .dashboard-tag { left: 0; }
   .growth-photo { right: 0; width: 270px; }
   .trust-section { gap: 10%; }
+  .card-grid { gap: 9%; }
+  .card-art { min-height: 320px; padding: 14px; }
+  .card-art img { min-height: 290px; }
 }
 
 @media (max-width: 680px) {
   .section-inner, .header-inner, .hero-inner { width: calc(100% - 36px); }
   .site-header { height: 70px; }
-  .brand-word { font-size: 17px; }
+  .brand-image { width: 108px; }
+  .brand-dark .brand-image { width: 116px; }
   .header-cta { display: none; }
   .mobile-toggle { display: flex; }
   .main-nav { align-items: start; background: var(--paper); box-shadow: 0 16px 26px rgba(32,33,32,.1); display: none; flex-direction: column; gap: 20px; left: 0; margin: 0; padding: 24px 18px 28px; position: absolute; right: 0; top: 70px; }
@@ -367,6 +390,13 @@ h2 em, h1 span { color: var(--yellow); font-style: normal; }
   .dashboard-tag { bottom: -54px; left: 12px; }
   .talent-copy { max-width: none; }
   .talent-copy h2 { margin-bottom: 22px; }
+  .card-section { padding: 78px 0 83px; }
+  .card-grid { display: block; }
+  .card-copy { max-width: none; }
+  .card-facts { margin-top: 25px; }
+  .card-art { margin: 59px 7px 0 0; min-height: 240px; padding: 10px; }
+  .card-art img { min-height: 220px; }
+  .card-art-label { bottom: 21px; left: 21px; }
   .opportunities-heading { margin-bottom: 36px; }
   .heading-side { padding-top: 25px; width: auto; }
   .opportunity-layout { display: block; }

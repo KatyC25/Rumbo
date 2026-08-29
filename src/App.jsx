@@ -1,7 +1,8 @@
 import { useState } from 'react'
+import logoImage from './LOGORUMBO.png'
+import kioskImage from './Kiosco Rumbo.jpeg'
+import cardImage from './Diseño de tarjeta rumbo.png'
 
-const heroImage =
-  'https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=1200&q=85'
 const teamImage =
   'https://images.unsplash.com/photo-1556761175-b413da4baf72?auto=format&fit=crop&w=1200&q=85'
 
@@ -113,15 +114,7 @@ function Icon({ name, size = 20 }) {
 function Brand({ dark = false }) {
   return (
     <a className={`brand ${dark ? 'brand-dark' : ''}`} href="#inicio" aria-label="Rumbo, inicio">
-      <span className="brand-mark" aria-hidden="true">
-        <svg viewBox="0 0 38 38" fill="none">
-          <circle cx="19" cy="19" r="17" stroke="currentColor" strokeWidth="1.6" />
-          <path d="M19 5v28M5 19h28" stroke="currentColor" strokeWidth="1" opacity=".5" />
-          <path d="m19 8 4 11-4 11-4-11 4-11Z" fill="currentColor" />
-          <circle cx="19" cy="19" r="2.1" fill="currentColor" />
-        </svg>
-      </span>
-      <span className="brand-word">RUMBO</span>
+      <img className="brand-image" src={logoImage} alt="Rumbo" />
     </a>
   )
 }
@@ -172,11 +165,11 @@ function App() {
               <div className="hero-orbit orbit-one" />
               <div className="hero-orbit orbit-two" />
               <div className="hero-photo-wrap">
-                <img src={heroImage} alt="Jóvenes colaborando en un proyecto" />
+                <img src={kioskImage} alt="Kiosco Rumbo de empleo juvenil" />
                 <div className="photo-shade" />
               </div>
-              <div className="floating-label label-top"><span className="label-check"><Icon name="check" size={13} /></span> Habilidad validada</div>
-              <div className="floating-label label-bottom"><span className="mini-spark"><Icon name="spark" size={15} /></span> Tu próximo paso empieza aquí</div>
+              <div className="floating-label label-top"><span className="label-check"><Icon name="check" size={13} /></span> Kiosco Rumbo · Campus Central</div>
+              <div className="floating-label label-bottom"><span className="mini-spark"><Icon name="scan" size={14} /></span> Tu tarjeta abre el camino</div>
               <div className="profile-mini-card">
                 <div className="mini-card-top"><span className="mini-avatar">KC</span><span className="verified"><Icon name="check" size={11} /> Verificado</span></div>
                 <p className="mini-card-name">Katherine C.</p>
@@ -223,6 +216,13 @@ function App() {
               <span className="dashboard-tag">RESULTADOS<br /><strong>EN TIEMPO REAL</strong></span>
             </div>
             <div className="talent-copy"><p className="eyebrow">Tus talentos validados</p><h2>Lo que haces bien<br /><em>también habla de ti.</em></h2><p>Tu perfil no se arma con palabras bonitas. Se construye con retos, evidencias y capacidades que puedes demostrar.</p><div className="talent-highlight"><span className="highlight-icon"><Icon name="spark" size={18} /></span><div><strong>Tu perfil está vivo</strong><p>Cada nuevo reto, curso o proyecto suma una coordenada a tu camino.</p></div></div><button className="text-button" onClick={() => openModal('activate')}>Construir mi perfil <Icon name="arrow" size={17} /></button></div>
+          </div>
+        </section>
+
+        <section className="card-section">
+          <div className="section-inner card-grid">
+            <div className="card-copy"><p className="eyebrow">Tu pasaporte de habilidades</p><h2>Una tarjeta física.<br /><em>Un perfil que avanza.</em></h2><p>Tu tarjeta Rumbo conecta el mundo real con tu perfil profesional digital. Escanéala para mostrar tus habilidades, evidencias y oportunidades, siempre bajo tu control.</p><div className="card-facts"><div><strong>01</strong><span>Se actualiza<br />contigo</span></div><div><strong>02</strong><span>Comparte solo<br />lo autorizado</span></div><div><strong>03</strong><span>Te acompaña<br />a donde vayas</span></div></div><button className="text-button" onClick={() => openModal('activate')}>Quiero mi tarjeta <Icon name="arrow" size={17} /></button></div>
+            <div className="card-art"><div className="card-art-grid" /><img src={cardImage} alt="Diseño de la tarjeta Rumbo, pasaporte de habilidades" /><span className="card-art-label">PASAPORTE<br /><strong>DE HABILIDADES</strong></span></div>
           </div>
         </section>
 
