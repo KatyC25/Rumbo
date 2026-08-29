@@ -122,10 +122,37 @@ function Brand({ dark = false }) {
 function App() {
   const [menuOpen, setMenuOpen] = useState(false)
   const [modal, setModal] = useState(null)
+  const [waitlistStatus, setWaitlistStatus] = useState('idle')
+  const [waitlistError, setWaitlistError] = useState('')
 
   const openModal = (type) => {
     setMenuOpen(false)
+    setWaitlistStatus('idle')
+    setWaitlistError('')
     setModal(type)
+  }
+
+  const handleWaitlistSubmit = async (event) => {
+    event.preventDefault()
+    const email = new FormData(event.currentTarget).get('email')?.toString().trim().toLowerCase()
+
+    setWaitlistStatus('loading')
+    setWaitlistError('')
+
+    try {
+      const response = await fetch('/api/waitlist', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email }),
+      })
+      const result = await response.json().catch(() => ({}))
+
+      if (!response.ok) throw new Error(result.error || 'No pudimos guardar tu correo.')
+      setWaitlistStatus('success')
+    } catch (error) {
+      setWaitlistError(error instanceof Error ? error.message : 'Inténtalo de nuevo en un momento.')
+      setWaitlistStatus('error')
+    }
   }
 
   return (
@@ -242,7 +269,7 @@ function App() {
 
       <footer className="site-footer"><div className="section-inner footer-top"><div><Brand dark /><p>En busca de oportunidades.</p></div><div className="footer-links"><div><span>EXPLORA</span><a href="#como-funciona">Cómo funciona</a><a href="#talentos">Tu perfil</a><a href="#oportunidades">Oportunidades</a></div><div><span>RUMBO</span><a href="#para-empresas">Para empresas</a><a href="#inicio">Privacidad</a><a href="#inicio">Contacto</a></div></div><div className="footer-social"><span>SÍGUENOS</span><div><a href="#inicio" aria-label="Instagram"><Icon name="instagram" size={18} /></a><a href="#inicio" aria-label="LinkedIn"><Icon name="linkedin" size={18} /></a></div></div></div><div className="section-inner footer-bottom"><span>© 2026 Rumbo · Chontal Noxus</span><span>Centro Tecnológico Josefa Toledo de Aguerri</span><span>Hecho para abrir caminos <b>↗</b></span></div></footer>
 
-      {modal && <div className="modal-backdrop" role="presentation" onClick={() => setModal(null)}><div className="modal-card" role="dialog" aria-modal="true" aria-labelledby="modal-title" onClick={(event) => event.stopPropagation()}><button className="modal-close" aria-label="Cerrar" onClick={() => setModal(null)}><Icon name="close" size={18} /></button><div className="modal-symbol">{modal === 'scan' ? <Icon name="scan" size={28} /> : modal === 'course' ? <Icon name="spark" size={28} /> : <span>R</span>}</div><p className="eyebrow">{modal === 'jobs' ? 'Próximamente' : modal === 'course' ? 'Ruta de crecimiento' : 'Tu próximo paso'}</p><h2 id="modal-title">{modal === 'scan' ? 'Escanea tu código Rumbo.' : modal === 'jobs' ? 'Las oportunidades están tomando forma.' : modal === 'course' ? 'Aprender también es avanzar.' : 'Activa tu tarjeta y descubre tu potencial.'}</h2><p>{modal === 'scan' ? 'La cámara del kiosco estará lista para conectar tu tarjeta con tu perfil validado.' : modal === 'jobs' ? 'Estamos preparando una red de empresas que buscan capacidades como las tuyas. Muy pronto podrás ver vacantes y retos reales.' : modal === 'course' ? 'Estamos curando cursos gratuitos y rutas cortas para ayudarte a cerrar la brecha entre tu talento y tu próxima oportunidad.' : 'Rumbo está preparando el piloto para que jóvenes como tú puedan convertir sus habilidades en evidencias. Déjanos tus datos para ser de los primeros.'}</p>{modal === 'activate' && <form className="modal-form" onSubmit={(event) => { event.preventDefault(); setModal('success') }}><input type="email" placeholder="Tu correo electrónico" aria-label="Tu correo electrónico" required /><button className="button button-navy" type="submit">Quiero tomar mi rumbo <Icon name="arrow" size={17} /></button></form>}{modal === 'success' && <div className="success-message"><Icon name="check" size={18} /> Te tenemos en el radar. ¡Gracias por confiar en tu talento!</div>}{modal !== 'activate' && modal !== 'success' && <button className="button button-navy modal-action" onClick={() => setModal(null)}>Entendido <Icon name="arrow" size={17} /></button>}</div></div>}
+      {modal && <div className="modal-backdrop" role="presentation" onClick={() => setModal(null)}><div className="modal-card" role="dialog" aria-modal="true" aria-labelledby="modal-title" onClick={(event) => event.stopPropagation()}><button className="modal-close" aria-label="Cerrar" onClick={() => setModal(null)}><Icon name="close" size={18} /></button><div className="modal-symbol">{modal === 'scan' ? <Icon name="scan" size={28} /> : modal === 'course' ? <Icon name="spark" size={28} /> : <span>R</span>}</div><p className="eyebrow">{modal === 'jobs' ? 'Próximamente' : modal === 'course' ? 'Ruta de crecimiento' : 'Tu próximo paso'}</p><h2 id="modal-title">{modal === 'scan' ? 'Escanea tu código Rumbo.' : modal === 'jobs' ? 'Las oportunidades están tomando forma.' : modal === 'course' ? 'Aprender también es avanzar.' : 'Activa tu tarjeta y descubre tu potencial.'}</h2><p>{modal === 'scan' ? 'La cámara del kiosco estará lista para conectar tu tarjeta con tu perfil validado.' : modal === 'jobs' ? 'Estamos preparando una red de empresas que buscan capacidades como las tuyas. Muy pronto podrás ver vacantes y retos reales.' : modal === 'course' ? 'Estamos curando cursos gratuitos y rutas cortas para ayudarte a cerrar la brecha entre tu talento y tu próxima oportunidad.' : 'Rumbo está preparando el piloto para que jóvenes como tú puedan convertir sus habilidades en evidencias. Déjanos tus datos para ser de los primeros.'}</p>{modal === 'activate' && (waitlistStatus === 'success' ? <div className="success-message"><Icon name="check" size={18} /> Te tenemos en el radar. ¡Gracias por confiar en tu talento!</div> : <form className="modal-form" onSubmit={handleWaitlistSubmit}><input name="email" type="email" placeholder="Tu correo electrónico" aria-label="Tu correo electrónico" required /><button className="button button-navy" disabled={waitlistStatus === 'loading'} type="submit">{waitlistStatus === 'loading' ? 'Guardando...' : 'Quiero tomar mi rumbo'} <Icon name="arrow" size={17} /></button>{waitlistStatus === 'error' && <small className="form-error">{waitlistError}</small>}</form>)}{modal !== 'activate' && <button className="button button-navy modal-action" onClick={() => setModal(null)}>Entendido <Icon name="arrow" size={17} /></button>}</div></div>}
     </div>
   )
 }

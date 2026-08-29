@@ -308,6 +308,7 @@ h2 em, h1 span { color: var(--yellow); font-style: normal; }
 .button-navy { background: var(--navy); color: white; }
 .modal-action { width: max-content; }
 .success-message { align-items: center; background: #d7ebdf; color: #276143; display: flex; font-size: 11px; gap: 8px; line-height: 1.5; padding: 13px; }
+.form-error { color: #a84747; display: block; font-size: 10px; grid-column: 1 / -1; line-height: 1.4; }
 
 @media (max-width: 900px) {
   .section-inner, .header-inner, .hero-inner { width: min(100% - 48px, 680px); }
